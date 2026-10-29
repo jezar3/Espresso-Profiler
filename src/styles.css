@@ -1,0 +1,52 @@
+* { box-sizing: border-box; }
+body { margin: 0; color: #222; background: #fff; font: 14px Arial, sans-serif; }
+main { max-width: 1120px; margin: auto; padding: 28px; }
+header, .archive-head { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+header { padding-bottom: 16px; border-bottom: 1px solid #ddd; color: #666; font-size: 10px; letter-spacing: 2px; }
+header b { color: #222; font-size: 15px; }
+.hero { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin: 22px 0 18px; padding: 34px 40px; border: 1px solid #ddd; border-radius: 4px 36px 4px 4px; background: #f7f7f7; }
+.hero small, .kicker { color: #666; font-size: 9px; font-weight: bold; letter-spacing: 2px; }
+h1, h2 { font-family: Georgia, serif; }
+h1 { margin: 12px 0 8px; font-size: clamp(32px, 6vw, 54px); font-weight: 500; letter-spacing: -2px; }
+h1 em { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+.hero p { margin: 0; color: #555; }
+.seal { display: grid; width: 112px; height: 112px; flex: 0 0 112px; place-content: center; gap: 2px; border: 1px solid #888; border-radius: 50%; color: #333; text-align: center; }
+.seal b { font: 34px Georgia, serif; }
+.seal small { color: #666; font-size: 8px; letter-spacing: 2px; }
+.quick-start { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+.quick-start > div { display: flex; align-items: flex-start; gap: 10px; padding: 14px; border: 1px solid #ddd; background: #fafafa; }
+.quick-start > div > b { display: grid; width: 22px; height: 22px; flex: 0 0 22px; place-items: center; border: 1px solid #999; border-radius: 50%; font-size: 11px; }
+.quick-start span { display: grid; gap: 4px; }
+.quick-start strong { font-size: 12px; }
+.quick-start small { color: #666; font-size: 11px; line-height: 1.4; }
+.workspace { display: grid; grid-template-columns: 300px 1fr; gap: 18px; align-items: start; }
+.recipe, .archive { padding: 24px; border: 1px solid #ddd; border-radius: 4px; background: #fff; }
+h2 { margin: 8px 0 20px; color: #222; font-size: 24px; font-weight: 500; }
+.recipe label { display: block; margin-bottom: 12px; color: #444; font-size: 12px; font-weight: bold; }
+.recipe .hint { display: block; margin: 4px 0 -2px; color: #666; font-size: 11px; font-weight: normal; }
+input { min-width: 0; font: inherit; }
+.recipe input, .recipe select { width: 100%; margin-top: 6px; padding: 11px; border: 1px solid #ccc; border-radius: 3px; background: #fff; color: #222; font: inherit; }
+.recipe input:focus, .recipe select:focus, .search:focus { outline: 2px solid #777; outline-offset: 1px; }
+.row { display: flex; gap: 10px; }
+.row label { flex: 1; }
+button { width: 100%; padding: 12px; border: 0; border-radius: 3px; background: #333; color: #fff; font-weight: bold; cursor: pointer; }
+button span { float: right; }
+.message, .connection { color: #444; font-size: 12px; line-height: 1.5; }
+.archive-head { margin-bottom: 16px; }
+.archive-head h2 { margin-bottom: 0; }
+.archive-head h2 span { margin-left: 5px; color: #666; font: 12px Arial, sans-serif; }
+.archive-head p { margin: 5px 0 0; color: #666; font-size: 11px; }
+.search { width: 205px; padding: 10px; border: 0; border-bottom: 1px solid #aaa; background: transparent; color: #222; font-size: 12px; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; min-width: 700px; border-collapse: collapse; text-align: left; }
+th { padding: 10px 8px; border-bottom: 1px solid #888; color: #666; font-size: 9px; letter-spacing: 1px; }
+th small { font-size: 9px; font-weight: normal; letter-spacing: 0; text-transform: none; }
+td { padding: 14px 8px; border-bottom: 1px solid #eee; color: #555; font-size: 12px; }
+td b { display: block; color: #222; font: 15px Georgia, serif; }
+td small { display: block; margin-top: 4px; color: #777; font-size: 9px; }
+.ratio { color: #222; font-weight: bold; white-space: nowrap; }
+.empty { padding: 28px 10px; color: #666; text-align: center; }
+.connection { margin: 0; text-align: center; }
+footer { padding: 20px 0 4px; color: #777; font-size: 9px; letter-spacing: 2px; text-align: center; }
+@media (max-width: 780px) { main { padding: 18px; } .workspace { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .hero { padding: 26px 22px; border-top-right-radius: 24px; } .seal { width: 82px; height: 82px; flex-basis: 82px; } .seal b { font-size: 26px; } header span { font-size: 8px; } .quick-start { grid-template-columns: 1fr; } .archive { padding: 18px; } .archive-head { align-items: flex-start; flex-direction: column; } .search { width: 100%; } }
