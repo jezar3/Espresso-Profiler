@@ -1,9 +1,20 @@
+// ============================================================
+// App.tsx — the FRONTEND (the entire visible user interface)
+//
+// This is one big "React component": a function that returns the
+// HTML-like layout (JSX) and re-draws it whenever the app's data
+// changes. Everything the user sees and clicks lives here.
+// ============================================================
 import { useEffect, useState, type FormEvent } from "react";
 
+// A "Shot" is one saved brew. This is just a C-style struct:
+// each field has a name and a type.
 type Shot = { id: string; name: string; method: string; coffee: string; dose: number; yield_grams: number; seconds: number };
 
+// The list of brew styles offered in the dropdown menu.
 const methods = ["Espresso", "Pour-over / drip", "Coffee sock / filter bag", "Pakulo / boiled", "French press", "Moka pot", "Cold brew", "Instant / 3-in-1"];
 
+// Helper: turn a number of seconds into a readable time string.
 function formatTime(shot: Shot) {
   if (shot.method === "Espresso" || shot.method === "Instant / 3-in-1") return `${shot.seconds}s`;
   const minutes = shot.seconds / 60;
@@ -11,28 +22,37 @@ function formatTime(shot: Shot) {
 }
 
 export default function App() {
-  const [shots, setShots] = useState<Shot[]>([]);
-  const [method, setMethod] = useState("Espresso");
-  const [query, setQuery] = useState("");
-  const [message, setMessage] = useState("");
+  // ---- The app's "memory" (React calls this "state"). ----
+  // Each useState is like a member variable, with one twist:
+  // assigning to it automatically re-draws the part of the UI that uses it.
+  const [shots, setShots] = useState<Shot[]>([]);  // all saved brews (starts empty)
+  const [method, setMethod] = useState("Espresso"); // chosen brew style
+  const [query, setQuery] = useState("");           // search text
+  const [message, setMessage] = useState("");       // status line
 
+  // Run once when the page first loads (like a constructor).
+  // Ask the backend for all saved brews, then store them in "shots".
   useEffect(() => {
     fetch("/api/shots").then((r) => r.json()).then(setShots).catch(() => setMessage("Couldn't connect to the database. Check that the app server is running."));
   }, []);
 
+  // Runs when the form is submitted (the Save brew button is pressed).
   async function save(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+    event.preventDefault(); // stop the browser from doing a normal page reload
     const form = event.currentTarget;
     try {
+      // Gather the form fields into a plain object: { name, method, coffee, dose, yield, time }.
       const values = Object.fromEntries(new FormData(form));
       const selectedMethod = String(values.method);
+      // Espresso & instant are typed in seconds; other styles in minutes -> convert to seconds.
       values.seconds = String(Number(values.time) * (selectedMethod === "Espresso" || selectedMethod === "Instant / 3-in-1" ? 1 : 60));
       delete values.time;
+      // Send the brew to the backend so it gets saved in the database.
       const response = await fetch("/api/shots", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(values) });
       if (!response.ok) throw new Error();
       const shot: Shot = await response.json();
-      setShots((all) => [shot, ...all]);
-      form.reset();
+      setShots((all) => [shot, ...all]); // put the saved brew at the top of the list
+      form.reset();                       // clear the form
       setMethod("Espresso");
       setMessage("Saved. Your shot is now in the archive.");
     } catch {
@@ -40,14 +60,31 @@ export default function App() {
     }
   }
 
+  // The search box only filters the list already in memory — no server call.
   const visible = shots.filter((shot) => `${shot.name} ${shot.method} ${shot.coffee}`.toLowerCase().includes(query.toLowerCase()));
 
+  // ---- The layout (JSX = HTML with a few rules). ----
+  // Everything below is what gets drawn on screen.
   return <main>
     <header><b>KAPE NOTES</b><span>PHILIPPINE BREW LOG</span></header>
     <div className="hero">
       <div><small>LOCAL COFFEE · ANY BREW STYLE</small><h1>Brew it your way.</h1><p>Log espresso, drip, pakulo, sock brew, and more.</p></div>
       <div className="seal"><small>BREWS</small><b>{String(shots.length).padStart(2, "0")}</b><small>LOGGED ✿</small></div>
     </div>
+    <section className="teacher-feature" aria-label="Teacher spotlight">
+      <div className="teacher-photo-wrap">
+        <img src="/images/teacher.png" alt="Portrait of the teacher outdoors" />
+        <span className="teacher-stamp">SPECIAL GUEST</span>
+        <span className="teacher-photo-id">KAPE NOTES · FILE 001</span>
+      </div>
+      <div className="teacher-copy">
+        <small>FACULTY DOSSIER · SPECIAL EDITION</small>
+        <h2>Our teacher.<br /><em>Legend status.</em></h2>
+        <p>A special appearance in the Kape Notes hall of fame.</p>
+        <div className="teacher-ribbon"><span>OFFICIAL GUEST</span><b>✦</b><span>BREW ARCHIVE</span></div>
+      </div>
+      <div className="teacher-seal" aria-hidden="true"><span>TEACHER</span><b>01</b><span>ICON</span></div>
+    </section>
     <div className="quick-start" aria-label="How to use Espresso Profiler">
       <div><b>1</b><span><strong>Choose your brew style</strong><small>Espresso, drip, coffee sock, pakulo, or another method.</small></span></div>
       <div><b>2</b><span><strong>Use what you measure</strong><small>Coffee in grams, water in milliliters, time in seconds or minutes.</small></span></div>
