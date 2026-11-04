@@ -1,0 +1,125 @@
+/* Plain testing CSS: default-looking text, thin outlines, uneven spacing. */
+body {
+  margin: 8px;
+}
+
+main {
+  margin: 0;
+}
+
+header,
+.hero,
+.teacher-feature,
+.quick-start,
+.recipe,
+.archive,
+footer {
+  margin-top: 13px;
+  margin-bottom: 17px;
+  padding: 4px;
+  outline: 1px solid #888;
+}
+
+h1,
+h2,
+b,
+strong,
+th {
+  font-weight: normal;
+}
+
+h1,
+h2 {
+  font-size: 16px;
+}
+
+header {
+  width: 79%;
+  margin-left: 5%;
+}
+
+.hero {
+  width: 91%;
+  margin-left: 24%;
+}
+
+.teacher-feature {
+  width: 72%;
+  margin-left: 2%;
+}
+
+.teacher-photo-wrap img {
+  width: 150px;
+}
+
+.teacher-copy {
+  margin-left: 33px;
+}
+
+.quick-start {
+  width: 88%;
+  margin-left: 7%;
+}
+
+.quick-start > div:nth-child(2) {
+  margin-left: 28px;
+}
+
+.quick-start > div:nth-child(3) {
+  margin-left: 9px;
+}
+
+.workspace {
+  margin-left: 31px;
+}
+
+.recipe {
+  width: 48%;
+  margin-left: 19%;
+}
+
+.recipe label {
+  display: block;
+  margin: 9px 0;
+}
+
+.hint {
+  display: block;
+}
+
+.recipe input,
+.recipe select {
+  width: 100%;
+}
+
+.archive {
+  width: 91%;
+  margin-left: 2%;
+}
+
+.search {
+  width: 180px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+}
+
+th,
+td {
+  outline: 1px solid #aaa;
+  padding: 4px;
+}
+
+.delete-shot {
+  font-weight: normal;
+}
+
+footer {
+  width: 65%;
+  margin-left: 29%;
+}
