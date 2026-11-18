@@ -76,6 +76,11 @@ export default function App() {
     <header><b>KAPE NOTES</b><span>PHILIPPINE BREW LOG</span></header>
     <div className="hero">
       <div><small>LOCAL COFFEE · ANY BREW STYLE</small><h1>Brew it your way.</h1><p>Log espresso, drip, pakulo, sock brew, and more.</p></div>
+      <div className="hero-cup" aria-hidden="true">
+        <span className="steam steam-one" />
+        <span className="steam steam-two" />
+        <img src="/images/coffee-cup.svg" alt="" />
+      </div>
       <div className="seal"><small>BREWS</small><b>{String(shots.length).padStart(2, "0")}</b><small>LOGGED ✿</small></div>
     </div>
     <details className="hall-of-fame">
